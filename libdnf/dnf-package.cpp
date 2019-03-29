@@ -131,6 +131,13 @@ dnf_package_get_filename(DnfPackage *pkg)
         }
     }
 
+    /* remove file:// protocol */
+    if (g_str_has_prefix(priv->filename, "file://")){
+        gchar *tmp = priv->filename;
+        priv->filename = g_strdup(tmp + 7);
+        g_free(tmp);
+    }
+
     return priv->filename;
 }
 
